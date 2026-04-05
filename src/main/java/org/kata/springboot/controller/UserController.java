@@ -3,12 +3,12 @@ package org.kata.springboot.controller;
 import org.kata.springboot.model.User;
 import org.kata.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,5 +33,24 @@ public class UserController {
     public List<User> getUsersPage(Model model) {
       return userService.getAllUsers();
     }
+
+
+    @PostMapping
+    public ResponseEntity<User> addUser(@RequestBody User newUser) {
+        User savedUser = userService.saveUser(newUser);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+    }
+
+    @PutMapping("/{id}")
+    public void updateUserById(@PathVariable Long id, @RequestBody User user) {
+        user.setId(id);
+        userService.updateUser(user);
+    }
+
 }
 
