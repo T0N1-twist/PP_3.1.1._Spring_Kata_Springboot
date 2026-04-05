@@ -38,7 +38,7 @@ public class UserDaoImpl implements UserDao {
         entityManager.merge(user);
     }
 
-
+    @Override
     public void deleteUser(Long id) {
         User user = entityManager.find(User.class, id);
         if (user != null) {
