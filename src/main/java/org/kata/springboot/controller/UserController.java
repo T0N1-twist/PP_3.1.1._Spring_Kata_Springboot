@@ -7,13 +7,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
-@RestController
+@Controller
 @RequestMapping("/users")
 public class UserController {
 
@@ -30,26 +31,31 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getUsersPage(Model model) {
-      return userService.getAllUsers();
+    public String getUsersPage(Model model) {
+      model.addAttribute("users", userService.getAllUsers());
+      return "users";
     }
 
 
-    @PostMapping
-    public ResponseEntity<User> addUser(@RequestBody User newUser) {
-        User savedUser = userService.saveUser(newUser);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
+    @PostMapping("/add")
+    public String addUser(@RequestParam String username,
+                          @RequestParam int age) {
+        userService.addUser(username,age);
+        return "redirect:/users";
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id) {
+    @PostMapping("/delete")
+    public String deleteUser(@RequestParam Long id) {
         userService.deleteUser(id);
+        return "redirect:/users";
     }
 
-    @PutMapping("/{id}")
-    public void updateUserById(@PathVariable Long id, @RequestBody User user) {
-        user.setId(id);
-        userService.updateUser(user);
+    @PostMapping("/update")
+    public String updateUser(@RequestParam Long id,
+                             @RequestParam String username,
+                             @RequestParam int age) {
+        userService.updateUserById(id, username, age);
+        return "redirect:/users";
     }
 
 }
