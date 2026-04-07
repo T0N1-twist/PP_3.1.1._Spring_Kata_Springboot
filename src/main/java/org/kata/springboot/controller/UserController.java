@@ -1,17 +1,12 @@
 package org.kata.springboot.controller;
 
-import org.kata.springboot.model.User;
+
 import org.kata.springboot.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+
 
 
 @Controller
@@ -20,7 +15,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @Autowired
+
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -38,8 +33,7 @@ public class UserController {
 
 
     @PostMapping("/add")
-    public String addUser(@RequestParam String username,
-                          @RequestParam int age) {
+    public String addUser(@RequestParam String username,@RequestParam int age) {
         userService.addUser(username,age);
         return "redirect:/users";
     }
@@ -51,9 +45,7 @@ public class UserController {
     }
 
     @PostMapping("/update")
-    public String updateUser(@RequestParam Long id,
-                             @RequestParam String username,
-                             @RequestParam int age) {
+    public String updateUser(@RequestParam Long id, @RequestParam String username, @RequestParam int age) {
         userService.updateUserById(id, username, age);
         return "redirect:/users";
     }
