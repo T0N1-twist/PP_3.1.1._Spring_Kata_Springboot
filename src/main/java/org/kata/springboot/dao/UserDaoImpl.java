@@ -10,10 +10,9 @@ import java.util.List;
 
 @Repository
 public class UserDaoImpl implements UserDao {
-
     private EntityManager entityManager;
 
-    @Autowired
+
     public UserDaoImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
@@ -26,7 +25,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void saveUser(User user) {
         entityManager.persist(user);
-}
+    }
 
     @Override
     public User getUserById(Long id) {

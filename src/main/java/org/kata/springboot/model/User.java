@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -13,7 +14,7 @@ public class User {
     @Column(name = "name", nullable = false)
     private String username;
 
-    @Transient
+    @Column(name = "age")
     private int age;
 
     @Column(name = "email")
