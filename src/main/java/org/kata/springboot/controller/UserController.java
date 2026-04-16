@@ -7,11 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
-
-
 @Controller
 @RequestMapping("/users")
 public class UserController {
+
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -25,14 +24,13 @@ public class UserController {
 
     @GetMapping
     public String getUsersPage(Model model) {
-      model.addAttribute("users", userService.getAllUsers());
-      return "users";
+        model.addAttribute("users", userService.getAllUsers());
+        return "users";
     }
 
-
     @PostMapping("/add")
-    public String addUser(@RequestParam String username,@RequestParam int age) {
-        userService.addUser(username,age);
+    public String addUser(@RequestParam String username, @RequestParam int age) {
+        userService.addUser(username, age);
         return "redirect:/users";
     }
 
